@@ -1,13 +1,6 @@
-# -*- coding: utf-8 -*-
-
-# Form implementation generated from reading ui file 'untitled.ui'
-#
-# Created by: PyQt5 UI code generator 5.11.2
-#
-# WARNING! All changes made in this file will be lost!
-
 from PyQt5 import QtCore, QtGui, QtWidgets 
 from Histogram import Histogram
+from HistogramMatcher import HistogramMatcher
 from popup import Ui_Dialog
 
 class MainWindow(object):
@@ -117,9 +110,6 @@ class MainWindow(object):
         self.horizontalLayout.addLayout(self.verticalLayout_3)
         mainWindow.setCentralWidget(self.centralwidget)
 
-
-
-
         self.menubar = QtWidgets.QMenuBar(mainWindow)
         self.menubar.setGeometry(QtCore.QRect(0, 0, 1280, 23))
         self.menubar.setObjectName("menubar")
@@ -150,6 +140,7 @@ class MainWindow(object):
 
         self.actionEqualizeHistogram = QtWidgets.QAction(mainWindow)
         self.actionEqualizeHistogram.setObjectName("actionEqualizeHistogram")
+        self.actionEqualizeHistogram.setShortcut("Ctrl+E")
         self.actionEqualizeHistogram.triggered.connect(self.equalizeHistogram)
 
 
@@ -186,11 +177,13 @@ class MainWindow(object):
             hist.createHistogramPlotImage(output)
             pixMapHist = QtGui.QPixmap(output)
             self.input_hist_label.setPixmap(pixMapHist)
+            # Save the object for matching
+            self.input_hist = hist
 
 
     def openTargetFileDialog(self):
         options = QtWidgets.QFileDialog.Options()
-        filename, _ = QtWidgets.QFileDialog.getOpenFileName(None,"QFileDialog.getOpenFileName()","","PNG Files (*.png);;Jpg Files (*.jpg)",options=options)
+        filename, _ = QtWidgets.QFileDialog.getOpenFileName(None,"QFileDialog.getOpenFileName()","","PNG Files (*.png);;JPG Files (*.jpg)",options=options)
         if filename:
             pixMap = QtGui.QPixmap(filename)
             self.target_image_label.setPixmap(pixMap)      
@@ -199,11 +192,28 @@ class MainWindow(object):
             hist.createHistogramPlotImage(output)
             pixMapHist = QtGui.QPixmap(output)
             self.target_hist_label.setPixmap(pixMapHist)  
-            hist.createCdfHistogram()          
+            # Save the object for matching
+            self.target_hist = hist
+
+                     
 
     def equalizeHistogram(self):
         if(self.input_image_label.pixmap() is not None and self.target_image_label.pixmap() is not None):
-            print("EQUALIZE")
+            filename = "result.png"
+            matcher = HistogramMatcher(self.input_hist,self.target_hist,filename)
+            matcher.createLookupTable()
+            matcher.constructImage()
+            # Show new image
+            pixMap = QtGui.QPixmap(filename)
+            self.result_image_label.setPixmap(pixMap)
+            # Create histogram of the result
+            hist = Histogram(filename)
+            hist_filename = "resultHistogram.png"
+            hist.createHistogramPlotImage(hist_filename)
+            # Show histogram
+            pixMapHist = QtGui.QPixmap(hist_filename)
+            self.result_hist_label.setPixmap(pixMapHist)
+            self.result_hist = hist
         else:
             self.Ui_Dialog = Ui_Dialog()
             self.Ui_Dialog.setupUi(self.Ui_Dialog)
