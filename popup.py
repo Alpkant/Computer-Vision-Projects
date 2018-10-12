@@ -1,10 +1,10 @@
-# -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'untitled.ui'
-#
-# Created by: PyQt5 UI code generator 5.11.3
-#
-# WARNING! All changes made in this file will be lost!
+""" 
+In order to run the program you should execute the following command
+in the command line: python Mainapp.py
+You need Mainapp.py, popup.py, ui.py, Histogram.py and HistogramMatcher.py 
+files in order to run the program.
+"""
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 

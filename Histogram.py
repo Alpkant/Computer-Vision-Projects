@@ -2,6 +2,13 @@ import cv2
 import numpy as np
 import matplotlib.pyplot as plt
 
+""" 
+In order to run the program you should execute the following command
+in the command line: python Mainapp.py
+You need Mainapp.py, popup.py, ui.py, Histogram.py and HistogramMatcher.py 
+files in order to run the program.
+"""
+
 class Histogram(object):
 	""" 
 	Histogram class takes input image filepath and

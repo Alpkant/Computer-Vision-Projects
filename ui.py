@@ -3,6 +3,14 @@ from Histogram import Histogram
 from HistogramMatcher import HistogramMatcher
 from popup import Ui_Dialog
 
+
+""" 
+In order to run the program you should execute the following command
+in the command line: python Mainapp.py
+You need Mainapp.py, popup.py, ui.py, Histogram.py and HistogramMatcher.py 
+files in order to run the program.
+"""
+
 class MainWindow(object):
     def setupUi(self, mainWindow):
         mainWindow.setObjectName("mainWindow")
@@ -208,7 +216,7 @@ class MainWindow(object):
             self.result_image_label.setPixmap(pixMap)
             # Create histogram of the result
             hist = Histogram(filename)
-            hist_filename = "resultHistogram.png"
+            hist_filename = "result_histogram.png"
             hist.createHistogramPlotImage(hist_filename)
             # Show histogram
             pixMapHist = QtGui.QPixmap(hist_filename)
