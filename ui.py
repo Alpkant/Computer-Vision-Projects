@@ -1,3 +1,7 @@
+# Author:
+# Alperen Kantarcı
+# 150140140
+
 from PyQt5 import QtCore, QtGui, QtWidgets 
 from Histogram import Histogram
 from HistogramMatcher import HistogramMatcher
@@ -204,7 +208,6 @@ class MainWindow(object):
             self.target_hist = hist
 
                      
-
     def equalizeHistogram(self):
         if(self.input_image_label.pixmap() is not None and self.target_image_label.pixmap() is not None):
             filename = "result.png"

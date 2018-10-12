@@ -1,3 +1,7 @@
+# Author:
+# Alperen Kantarcı
+# 150140140
+
 import sys
 from PyQt5.QtWidgets import QDialog,QMainWindow, QApplication
 from ui import MainWindow

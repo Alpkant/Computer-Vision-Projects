@@ -1,3 +1,7 @@
+# Author:
+# Alperen Kantarcı
+# 150140140
+
 import numpy as np
 import cv2
 from Histogram import Histogram

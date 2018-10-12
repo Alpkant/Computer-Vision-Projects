@@ -1,3 +1,7 @@
+# Author:
+# Alperen Kantarcı
+# 150140140
+
 import cv2
 import numpy as np
 import matplotlib.pyplot as plt

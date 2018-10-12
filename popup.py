@@ -1,3 +1,6 @@
+# Author:
+# Alperen Kantarcı
+# 150140140
 
 """ 
 In order to run the program you should execute the following command
