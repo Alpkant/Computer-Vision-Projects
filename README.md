@@ -6,3 +6,4 @@ Istanbul Technical University Computer Vision BLG453 Homework 1
   - NumPy
   - PyQt5
   - Matplotlib
+  - cv2
