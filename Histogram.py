@@ -67,7 +67,7 @@ class Histogram(object):
 		Creating Histogram for the each channel and save the plot
 		to given path 
 		"""
-		figure,axarr = plt.subplots(self.channel,sharex = False)
+		figure,axarr = plt.subplots(self.channel,sharex = False,figsize=(6,4))
 		figure.suptitle('Histogram of the R G B channels')
 		colors = ["r","g","b","k","c"]
 		for i in range(self.channel):
