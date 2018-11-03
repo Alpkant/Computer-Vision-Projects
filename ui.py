@@ -132,19 +132,28 @@ class Ui_MainWindow(object):
 	    self.median13x13.triggered.connect(lambda: self.median_filter(13))
 	    self.median15x15.triggered.connect(lambda: self.median_filter(15))
 
-
+	    # Rotations
 	    self.rotate_10_degree_right = QtWidgets.QAction(MainWindow)
-	    self.rotate_10_degree_right.setObjectName("rotate_10_degree_right")
 	    self.rotate_10_degree_left = QtWidgets.QAction(MainWindow)
+	    self.rotate_10_degree_right.setObjectName("rotate_10_degree_right")
 	    self.rotate_10_degree_left.setObjectName("rotate_10_degree_left")
+	    # Function for left rotate is -10 and right rotate is +10 
+	    self.rotate_10_degree_left.triggered.connect(lambda: self.rotate_10(-10))
+	    self.rotate_10_degree_right.triggered.connect(lambda: self.rotate_10(10))
+
+	    # Scaling
 	    self.scale2x = QtWidgets.QAction(MainWindow)
-	    self.scale2x.setObjectName("scale2x")
 	    self.scale1_2x = QtWidgets.QAction(MainWindow)
+	    self.scale2x.setObjectName("scale2x")
 	    self.scale1_2x.setObjectName("scale1_2x")
+	    
+	    # Translating
 	    self.translateRight = QtWidgets.QAction(MainWindow)
-	    self.translateRight.setObjectName("translateRight")
 	    self.translateLeft = QtWidgets.QAction(MainWindow)
+	    self.translateRight.setObjectName("translateRight")
 	    self.translateLeft.setObjectName("translateLeft")
+	    
+
 	    self.menuFile.addAction(self.actionOpen)
 	    self.menuFile.addAction(self.actionSave)
 	    self.menuFile.addAction(self.actionExit)
@@ -276,6 +285,25 @@ class Ui_MainWindow(object):
 			filter = MedianFilter(self.label_img,filter_size)
 			self.label_img , pixMap = filter.apply_filter()
 			self.label.setPixmap(pixMap)
+		else:
+			self.Ui_Dialog = Ui_Dialog()
+			self.Ui_Dialog.setupUi(self.Ui_Dialog)
+			self.Ui_Dialog.show()
+
+	def rotate(self,degree):
+		raw_image = self.label.pixmap()
+		if raw_image is not None:
+			print(degree)
+		else:
+			self.Ui_Dialog = Ui_Dialog()
+			self.Ui_Dialog.setupUi(self.Ui_Dialog)
+			self.Ui_Dialog.show()
+
+
+	def scale(self,degree):
+		raw_image = self.label.pixmap()
+		if raw_image is not None:
+			print(degree)
 		else:
 			self.Ui_Dialog = Ui_Dialog()
 			self.Ui_Dialog.setupUi(self.Ui_Dialog)
