@@ -2,6 +2,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 from MedianFilter import MedianFilter
 from AverageFilter import AverageFilter
 from GaussianFilter import GaussianFilter
+from Transformer import Transformer 
 import cv2
 from popup import Ui_Dialog
 
@@ -148,10 +149,20 @@ class Ui_MainWindow(object):
 	    self.scale1_2x.setObjectName("scale1_2x")
 	    
 	    # Translating
-	    self.translateRight = QtWidgets.QAction(MainWindow)
 	    self.translateLeft = QtWidgets.QAction(MainWindow)
-	    self.translateRight.setObjectName("translateRight")
+	    self.translateRight = QtWidgets.QAction(MainWindow)
 	    self.translateLeft.setObjectName("translateLeft")
+	    self.translateRight.setObjectName("translateRight")
+	    self.translateUp = QtWidgets.QAction(MainWindow)
+	    self.translateDown = QtWidgets.QAction(MainWindow)
+	    self.translateUp.setObjectName("translateUp")
+	    self.translateDown.setObjectName("translateDown")
+	    self.translateLeft.triggered.connect(lambda: self.translate(-1))
+	    self.translateRight.triggered.connect(lambda: self.translate(0))
+	    self.translateDown.triggered.connect(lambda: self.translate(1))
+	    self.translateUp.triggered.connect(lambda: self.translate(2))
+
+
 	    
 
 	    self.menuFile.addAction(self.actionOpen)
@@ -187,6 +198,8 @@ class Ui_MainWindow(object):
 	    self.menuScale.addAction(self.scale1_2x)
 	    self.menuTranslate.addAction(self.translateRight)
 	    self.menuTranslate.addAction(self.translateLeft)
+	    self.menuTranslate.addAction(self.translateUp)
+	    self.menuTranslate.addAction(self.translateDown)
 	    self.menuGeometric_Transforms.addAction(self.menuRotate.menuAction())
 	    self.menuGeometric_Transforms.addAction(self.menuScale.menuAction())
 	    self.menuGeometric_Transforms.addAction(self.menuTranslate.menuAction())
@@ -240,6 +253,9 @@ class Ui_MainWindow(object):
 	    self.scale1_2x.setText(_translate("MainWindow", "1/2x"))
 	    self.translateRight.setText(_translate("MainWindow", "Right"))
 	    self.translateLeft.setText(_translate("MainWindow", "Left"))
+	    self.translateUp.setText(_translate("MainWindow", "Up"))
+	    self.translateDown.setText(_translate("MainWindow", "Down"))
+
 
 
 	def openInputFileDialog(self):
@@ -304,6 +320,17 @@ class Ui_MainWindow(object):
 		raw_image = self.label.pixmap()
 		if raw_image is not None:
 			print(degree)
+		else:
+			self.Ui_Dialog = Ui_Dialog()
+			self.Ui_Dialog.setupUi(self.Ui_Dialog)
+			self.Ui_Dialog.show()
+
+	def translate(self,direction):
+		raw_image = self.label.pixmap()
+		if raw_image is not None:
+			transformer = Transformer(self.label_img,"translate")
+			self.label_img , pixMap = transformer.translate(direction)
+			self.label.setPixmap(pixMap)
 		else:
 			self.Ui_Dialog = Ui_Dialog()
 			self.Ui_Dialog.setupUi(self.Ui_Dialog)

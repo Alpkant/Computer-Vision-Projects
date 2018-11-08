@@ -23,6 +23,7 @@ class MedianFilter(object):
 		for i in range(channel):
 			for r in range(pad_s,row-pad_s):
 				for c in range(pad_s,column-pad_s):
+					# Taking median value of image's intensity values in the area of the filter (pad_s,pad_s square) 
 					self.newI[r-pad_s,c-pad_s,i] = np.uint8(np.median(self.I[r-pad_s:r+pad_s,c-pad_s:c+pad_s,i]))
 
 		row,column,channel = self.newI.shape
