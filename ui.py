@@ -4,6 +4,7 @@ from AverageFilter import AverageFilter
 from GaussianFilter import GaussianFilter
 from Transformer import Transformer 
 import cv2
+import numpy as np
 from popup import Ui_Dialog
 
 class Ui_MainWindow(object):
@@ -139,14 +140,17 @@ class Ui_MainWindow(object):
 	    self.rotate_10_degree_right.setObjectName("rotate_10_degree_right")
 	    self.rotate_10_degree_left.setObjectName("rotate_10_degree_left")
 	    # Function for left rotate is -10 and right rotate is +10 
-	    self.rotate_10_degree_left.triggered.connect(lambda: self.rotate_10(-10))
-	    self.rotate_10_degree_right.triggered.connect(lambda: self.rotate_10(10))
+	    self.rotate_10_degree_left.triggered.connect(lambda: self.rotate(np.pi/18))
+	    self.rotate_10_degree_right.triggered.connect(lambda: self.rotate(-np.pi/18))
 
 	    # Scaling
 	    self.scale2x = QtWidgets.QAction(MainWindow)
 	    self.scale1_2x = QtWidgets.QAction(MainWindow)
 	    self.scale2x.setObjectName("scale2x")
 	    self.scale1_2x.setObjectName("scale1_2x")
+	    self.scale2x.triggered.connect(lambda: self.scale(2))
+	    self.scale1_2x.triggered.connect(lambda: self.scale(0.5))
+
 	    
 	    # Translating
 	    self.translateLeft = QtWidgets.QAction(MainWindow)
@@ -309,17 +313,21 @@ class Ui_MainWindow(object):
 	def rotate(self,degree):
 		raw_image = self.label.pixmap()
 		if raw_image is not None:
-			print(degree)
+			transformer = Transformer(self.label_img,"rotate")
+			self.label_img , pixMap = transformer.rotate(degree)
+			self.label.setPixmap(pixMap)
 		else:
 			self.Ui_Dialog = Ui_Dialog()
 			self.Ui_Dialog.setupUi(self.Ui_Dialog)
 			self.Ui_Dialog.show()
 
 
-	def scale(self,degree):
+	def scale(self,scale_val):
 		raw_image = self.label.pixmap()
 		if raw_image is not None:
-			print(degree)
+			transformer = Transformer(self.label_img,"scale")
+			self.label_img , pixMap = transformer.scale(scale_val)
+			self.label.setPixmap(pixMap)
 		else:
 			self.Ui_Dialog = Ui_Dialog()
 			self.Ui_Dialog.setupUi(self.Ui_Dialog)
