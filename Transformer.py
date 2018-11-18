@@ -36,8 +36,8 @@ class Transformer(object):
 			raise Exception("Wrong type of instance!")
 
 		origin_height,origin_width,channel = self.I.shape
-		height = np.maximum(origin_width,origin_height)
-		width = np.maximum(origin_width,origin_height)	
+		height = origin_height
+		width  = origin_width
 		center_x = width//2
 		center_y = height//2
 
@@ -58,7 +58,7 @@ class Transformer(object):
 		counter = 0
 		new_coords = np.int32(new_coords)
 		new_coords[0,:] +=  center_x
-		new_coords[1,:] +=  center_y 
+		new_coords[1,:] +=  center_y
 
 
 		for i in range(height):
@@ -93,7 +93,7 @@ class Transformer(object):
 
 		#Calculate backward mapping
 		new_coords = np.matmul(np.linalg.inv(np.asarray([
-			[scale_value,0,10],
+			[scale_value,0,0],
 			[0,scale_value,0],
 			[0,0,1]])),coords)
 
