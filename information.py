@@ -5,7 +5,7 @@
 """ 
 In order to run the program you should execute the following command
 in the command line: python Mainapp.py
-You need Mainapp.py, popup.py, ui.py, Histogram.py and HistogramMatcher.py 
+You need Mainapp.py, popup.py, ui.py and information.py
 files in order to run the program.
 """
 

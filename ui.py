@@ -5,6 +5,32 @@ from popup import popup_dialog
 from information import information_dialog
 import random
 
+def area(x1, y1, x2, y2, x3, y3): 
+	return abs((x1 * (y2 - y3) + x2 * (y3 - y1) + x3 * (y1 - y2)) / 2.0) 
+
+  
+# A function to check whether point P(x, y) 
+# lies inside the triangle formed by  
+# A(x1, y1), B(x2, y2) and C(x3, y3)  
+def isInside(t_list, x, y): 
+	x1 = t_list[0]
+	y1=t_list[1]
+	x2 = t_list[2]
+	y2=t_list[3]
+	x3 = t_list[4]
+	y3=t_list[5]
+
+	A = area (x1, y1, x2, y2, x3, y3) 
+	A1 = area (x, y, x2, y2, x3, y3)   
+	A2 = area (x1, y1, x, y, x3, y3) 
+	A3 = area (x1, y1, x2, y2, x, y) 
+    # Check if sum of A1, A2 and A3  
+    # is same as A 
+	if(A == A1 + A2 + A3): 
+		return True
+	else: 
+		return False
+
 class Ui_MainWindow(object):
 	def setupUi(self, mainWindow):
 	    mainWindow.setObjectName("mainWindow")
@@ -176,10 +202,6 @@ class Ui_MainWindow(object):
 		self.actionTriangulate.setText(_translate("mainWindow","Create Triangulation"))
 		self.actionMorph.setText(_translate("mainWindow","Morph"))
 
-
-
-
-
 	def openInputFileDialog(self):
 	    options = QtWidgets.QFileDialog.Options()
 	    filename, _ = QtWidgets.QFileDialog.getOpenFileName(None,"QFileDialog.getOpenFileName()","","Jpg Files (*.jpg);;PNG Files (*.png)",options=options)
@@ -216,6 +238,7 @@ class Ui_MainWindow(object):
 			return
 		
 		if len(self.input_image_points) == len(self.target_image_points) and len(self.target_image_points)!=0 :
+			# Input image triangulation
 			size = self.input_image_arr.shape
 			rect = (0,0,size[1],size[0])
 			subdiv = cv2.Subdiv2D(rect)
@@ -231,10 +254,9 @@ class Ui_MainWindow(object):
 				painter.end()
 				self.input_image_label.setPixmap(input_image)
 
+			self.input_triangularList = triangularList
 
-
-
-
+			# Target image triangulation
 			size = self.target_image_arr.shape
 			rect = (0,0,size[1],size[0])
 			subdiv = cv2.Subdiv2D(rect)
@@ -249,19 +271,54 @@ class Ui_MainWindow(object):
 				painter.drawPolygon(self.createPolygon(triangularList[i]))
 				painter.end()
 				self.target_image_label.setPixmap(target_image)
+
+			self.target_triangularList = triangularList
+
+
+
 		else:
 			self.showInfo()
+
+
 
 
 
 	def morph(self):
 		input_image = self.input_image_label.pixmap()
 		target_image = self.target_image_label.pixmap()
-
 		if input_image is not None or target_image is not None :
-			print("asdf")
+			input_list = self.input_triangularList
+			target_list = self.target_triangularList
+			result_image_arr = np.zeros(self.input_image_arr.shape)
+			for i in range(result_image_arr.shape[0]):
+				for j in range(result_image_arr.shape[1]):
+					for index,k in enumerate(target_list):
+						if isInside(k,i,j):
+							estimation_matrix = self.estimate(input_list[index],target_list[index])
+							new_coords = np.matmul(np.linalg.inv(estimation_matrix),np.array([[i],[j],[1]])).astype(int)
+							result_image_arr[i,j,:] = self.input_image_arr[new_coords[0][0],new_coords[1][0],:]
+							break
+		
+			row,column,channel = result_image_arr.shape
+			qImg = QtGui.QImage(np.uint8(result_image_arr).copy(), column, row,3*column, QtGui.QImage.Format_RGB888).rgbSwapped()
+			pixmap = QtGui.QPixmap.fromImage(qImg)
+			self.result_image_label.setPixmap(pixmap)
+
 		else:
 			self.showError()
+
+	def estimate(self,input_row,target_row):
+		
+		array_a = np.array([ [input_row[0],input_row[2],input_row[4]],
+							[input_row[1],input_row[3],input_row[5]],
+							[1,1,1] ],dtype=np.uint32)
+		array_b = np.array([ [target_row[0],target_row[2],target_row[4]],
+							[target_row[1],target_row[3],target_row[5]],
+							[1,1,1] ],dtype=np.uint32)
+
+		transformation = np.linalg.solve(array_a,array_b)
+		return transformation
+
 
 	def inputImageMouseClickEvent(self, QMouseEvent):
 		input_image = self.input_image_label.pixmap()

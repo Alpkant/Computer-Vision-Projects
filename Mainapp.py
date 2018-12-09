@@ -1,14 +1,14 @@
-# Author:
-# Alperen Kantarcı
-# 150140140
 import sys
 from PyQt5.QtWidgets import QDialog,QMainWindow, QApplication
 from ui import Ui_MainWindow
+# Author:
+# Alperen Kantarcı
+# 150140140
 
 """ 
 In order to run the program you should execute the following command
 in the command line: python Mainapp.py
-You need Mainapp.py, ui.py
+You need Mainapp.py, popup.py, ui.py and information.py
 files in order to run the program.
 """
 
