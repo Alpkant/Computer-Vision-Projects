@@ -1,0 +1,275 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>998</width>
+    <height>812</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Filtering &amp; Geometric Transforms</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QHBoxLayout" name="horizontalLayout">
+    <item alignment="Qt::AlignHCenter|Qt::AlignVCenter">
+     <widget class="QLabel" name="label">
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>998</width>
+     <height>23</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menuFile">
+    <property name="title">
+     <string>File</string>
+    </property>
+    <addaction name="actionOpen"/>
+    <addaction name="actionSave"/>
+    <addaction name="actionExit"/>
+   </widget>
+   <widget class="QMenu" name="menuFilters">
+    <property name="title">
+     <string>Filters</string>
+    </property>
+    <widget class="QMenu" name="menuAverage_Filters">
+     <property name="title">
+      <string>Average Filters</string>
+     </property>
+     <addaction name="gaussian3x3"/>
+     <addaction name="gaussian5x5"/>
+     <addaction name="gaussian7x7"/>
+     <addaction name="gaussian9x9"/>
+     <addaction name="gaussian11x11"/>
+     <addaction name="gaussian13x13"/>
+     <addaction name="gaussian15x15"/>
+    </widget>
+    <widget class="QMenu" name="menuGaussian_Filters">
+     <property name="title">
+      <string>Gaussian Filters</string>
+     </property>
+     <addaction name="action3x3_3"/>
+     <addaction name="action5x5_2"/>
+     <addaction name="action7x7_2"/>
+     <addaction name="action9x9_2"/>
+     <addaction name="action11x11_2"/>
+     <addaction name="action13x13_2"/>
+     <addaction name="action15x15_2"/>
+    </widget>
+    <widget class="QMenu" name="menuMedian_Filters">
+     <property name="title">
+      <string>Median Filters</string>
+     </property>
+     <addaction name="median3x3"/>
+     <addaction name="median5x5"/>
+     <addaction name="median7x7"/>
+     <addaction name="median9x9"/>
+     <addaction name="median11x11"/>
+     <addaction name="median13x13"/>
+     <addaction name="median15x15"/>
+    </widget>
+    <addaction name="menuAverage_Filters"/>
+    <addaction name="menuGaussian_Filters"/>
+    <addaction name="menuMedian_Filters"/>
+   </widget>
+   <widget class="QMenu" name="menuGeometric_Transforms">
+    <property name="title">
+     <string>Geometric Transforms</string>
+    </property>
+    <widget class="QMenu" name="menuRotate">
+     <property name="title">
+      <string>Rotate</string>
+     </property>
+     <addaction name="rotate_10_degree_right"/>
+     <addaction name="rotate_10_degree_left"/>
+    </widget>
+    <widget class="QMenu" name="menuScale">
+     <property name="title">
+      <string>Scale</string>
+     </property>
+     <addaction name="scale2x"/>
+     <addaction name="scale1_2x"/>
+    </widget>
+    <widget class="QMenu" name="menuTranslate">
+     <property name="title">
+      <string>Translate</string>
+     </property>
+     <addaction name="translateRight"/>
+     <addaction name="translateLeft"/>
+    </widget>
+    <addaction name="menuRotate"/>
+    <addaction name="menuScale"/>
+    <addaction name="menuTranslate"/>
+   </widget>
+   <addaction name="menuFile"/>
+   <addaction name="menuFilters"/>
+   <addaction name="menuGeometric_Transforms"/>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+  <action name="actionOpen">
+   <property name="text">
+    <string>Open</string>
+   </property>
+  </action>
+  <action name="actionSave">
+   <property name="text">
+    <string>Save</string>
+   </property>
+  </action>
+  <action name="actionExit">
+   <property name="text">
+    <string>Exit</string>
+   </property>
+  </action>
+  <action name="gaussian3x3">
+   <property name="text">
+    <string>3x3</string>
+   </property>
+  </action>
+  <action name="gaussian5x5">
+   <property name="text">
+    <string>5x5</string>
+   </property>
+  </action>
+  <action name="gaussian7x7">
+   <property name="text">
+    <string>7x7</string>
+   </property>
+  </action>
+  <action name="gaussian9x9">
+   <property name="text">
+    <string>9x9</string>
+   </property>
+  </action>
+  <action name="gaussian11x11">
+   <property name="text">
+    <string>11x11</string>
+   </property>
+  </action>
+  <action name="gaussian13x13">
+   <property name="text">
+    <string>13x13</string>
+   </property>
+  </action>
+  <action name="gaussian15x15">
+   <property name="text">
+    <string>15x15</string>
+   </property>
+  </action>
+  <action name="action3x3_3">
+   <property name="text">
+    <string>3x3</string>
+   </property>
+  </action>
+  <action name="action5x5_2">
+   <property name="text">
+    <string>5x5</string>
+   </property>
+  </action>
+  <action name="action7x7_2">
+   <property name="text">
+    <string>7x7</string>
+   </property>
+  </action>
+  <action name="action9x9_2">
+   <property name="text">
+    <string>9x9</string>
+   </property>
+  </action>
+  <action name="action11x11_2">
+   <property name="text">
+    <string>11x11</string>
+   </property>
+  </action>
+  <action name="action13x13_2">
+   <property name="text">
+    <string>13x13</string>
+   </property>
+  </action>
+  <action name="action15x15_2">
+   <property name="text">
+    <string>15x15</string>
+   </property>
+  </action>
+  <action name="median3x3">
+   <property name="text">
+    <string>3x3</string>
+   </property>
+  </action>
+  <action name="median5x5">
+   <property name="text">
+    <string>5x5</string>
+   </property>
+  </action>
+  <action name="median7x7">
+   <property name="text">
+    <string>7x7</string>
+   </property>
+  </action>
+  <action name="median9x9">
+   <property name="text">
+    <string>9x9</string>
+   </property>
+  </action>
+  <action name="median11x11">
+   <property name="text">
+    <string>11x11</string>
+   </property>
+  </action>
+  <action name="median13x13">
+   <property name="text">
+    <string>13x13</string>
+   </property>
+  </action>
+  <action name="median15x15">
+   <property name="text">
+    <string>15x15</string>
+   </property>
+  </action>
+  <action name="rotate_10_degree_right">
+   <property name="text">
+    <string>Rotate 10 Degree Right</string>
+   </property>
+  </action>
+  <action name="rotate_10_degree_left">
+   <property name="text">
+    <string>Rotate 10 Degree Left</string>
+   </property>
+  </action>
+  <action name="scale2x">
+   <property name="text">
+    <string>2x</string>
+   </property>
+  </action>
+  <action name="scale1_2x">
+   <property name="text">
+    <string>1/2x</string>
+   </property>
+  </action>
+  <action name="translateRight">
+   <property name="text">
+    <string>Right</string>
+   </property>
+  </action>
+  <action name="translateLeft">
+   <property name="text">
+    <string>Left</string>
+   </property>
+  </action>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
